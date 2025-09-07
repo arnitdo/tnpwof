@@ -40,7 +40,7 @@ export default function CreateEditor(props: EditorProps) {
         })
     }, [selectedStudent, selectedCompany]);
 
-    if (!window.location.href.includes(process.env.NEXT_PUBLIC_SECRET_KEY!)){
+    if (typeof window !== "undefined" && !window.location.href.includes(process.env.NEXT_PUBLIC_SECRET_KEY!)){
         return null
     }
 
@@ -106,6 +106,8 @@ export default function CreateEditor(props: EditorProps) {
                                 imageDataUrl: generatedImage,
                                 studentId: selectedStudent.studentId,
                                 companyName: selectedCompany.companyName
+                            }).then(() => {
+                                window.alert("Saved Successfully")
                             })
                         }
                     }}
