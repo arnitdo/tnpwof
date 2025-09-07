@@ -97,7 +97,7 @@ export async function createImage(args: CreateImageArgs): Promise<string | null>
 
         let compensationString: string;
 
-        if (companyCompensation > 1000){
+        if (companyCompensation >= 1000){
             compensationString = compDigitA + compDigitB + "." + compDigitC
         } else {
             compensationString = compDigitB + "." + compDigitC + compDigitD
