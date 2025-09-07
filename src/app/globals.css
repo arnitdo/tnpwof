@@ -5,6 +5,7 @@
     src: url("../../public/fonts/ALoveOfThunder.ttf");
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
@@ -12,4 +13,5 @@
     src: url("../../public/fonts/ProductSansBold.ttf");
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
 }

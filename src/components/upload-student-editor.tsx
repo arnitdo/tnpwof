@@ -84,13 +84,16 @@ export default function UploadStudentEditor(props: EditorProps) {
                     </select>
                 </div>
                     Save Student Image To Server
-                <form className={"flex flex-col gap-2"} onSubmit={() => {}}>
+                <form className={"flex flex-col gap-2"} onSubmit={(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    return false
+                }}>
                     <h3 className={"text-lg"}>Student Details</h3>
                     <div className={"flex flex-row items-center justify-between gap-2"}>
                         <label htmlFor={"studentId"}>SAP ID</label>
                         <input
-                            className={"border p-1 invalid:border-red-500"}
-                            name={"studentId"}
+                            className={"border p-1 invalid:border-red-500 invalid:border-4"}
                             type={"text"}
                             required
                             pattern={"^600(02|03|04|05|09|17|18|19)2(0|1|2|3)\\d{4}$"}
@@ -108,7 +111,7 @@ export default function UploadStudentEditor(props: EditorProps) {
                     <div className={"flex flex-row items-center justify-between gap-2"}>
                         First Name
                         <input
-                            className={"border p-1 invalid:border-red-500"}
+                            className={"border p-1 invalid:border-red-500 invalid:border-4"}
                             required
                             value={selectedStudent.studentFirstName}
                             onChange={(e) => {
@@ -124,7 +127,7 @@ export default function UploadStudentEditor(props: EditorProps) {
                     <div className={"flex flex-row items-center justify-between gap-2"}>
                         Last Name
                         <input
-                            className={"border p-1 invalid:border-red-500"}
+                            className={"border p-1 invalid:border-red-500 invalid:border-4"}
                             required
                             type={"text"}
                             value={selectedStudent.studentLastName}
@@ -187,7 +190,7 @@ export default function UploadStudentEditor(props: EditorProps) {
                         />
                     </div>
                     <button
-                        className={"border p-2"}
+                        className={"border p-2 disabled:bg-red-500"}
                         disabled={!isValidSubmission}
                         onClick={() => {
                             if (isValidSubmission){
@@ -196,10 +199,14 @@ export default function UploadStudentEditor(props: EditorProps) {
                                     studentId: selectedStudent.studentId,
                                     studentFirstName: selectedStudent.studentFirstName,
                                     studentLastName: selectedStudent.studentLastName,
+                                }).then(() => {
+                                    window.alert("Saved Successfully")
                                 })
                             }
                         }}
-                    >Save Student Image To Server</button>
+                    >{
+                        isValidSubmission ? "Save Student Image To Server" : "Fill All Details Correctly to Save"
+                    }</button>
                 </form>
                 <div>
                     <h3 className={"text-lg"}>Note</h3>

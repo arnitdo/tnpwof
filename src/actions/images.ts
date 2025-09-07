@@ -69,7 +69,7 @@ export async function saveStudentImage(args: SaveStudentImageArgs){
         imageBuffer,
     )
 
-    return COMPANY_IMAGE_PATH + "/" + filenameOutput
+    return STUDENT_IMAGE_PATH + "/" + filenameOutput
 }
 
 type SaveCompanyImageArgs = {
@@ -81,7 +81,7 @@ type SaveCompanyImageArgs = {
 export async function saveCompanyImage(args: SaveCompanyImageArgs){
     const {companyName, companyCompensation} = args
     const fmtComp = Math.floor(companyCompensation * 100).toString().padStart(4, "0")
-    const filenameOutput = `${canonicalizeText(companyName)}_${fmtComp}.png`
+    const filenameOutput = `${companyName}_${fmtComp}.png`
 
     const base64Data = args.imageDataUrl.split(",")[1]
 

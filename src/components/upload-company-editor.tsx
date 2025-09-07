@@ -146,6 +146,8 @@ export default function UploadCompanyEditor(props: EditorProps) {
                                 companyName: selectedCompany.companyName,
                                 companyCompensation: selectedCompany.companyCompensation,
                                 imageDataUrl: selectedCompany.companyImageUrl
+                            }).then(() => {
+                                window.alert("Saved Successfully")
                             })
                         }
                     }}

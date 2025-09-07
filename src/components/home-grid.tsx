@@ -7,7 +7,7 @@ type HomeGridProps = {
 export default function HomeGrid(props: HomeGridProps) {
     const {imageUrls} = props
 
-    if (!window.location.href.includes(process.env.NEXT_PUBLIC_SECRET_KEY!)){
+    if (typeof window !== "undefined" && !window.location.href.includes(process.env.NEXT_PUBLIC_SECRET_KEY!)){
         return null
     }
 
