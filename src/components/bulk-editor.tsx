@@ -47,11 +47,11 @@ export default function BulkEditor(props: EditorProps) {
             })
         const mappedRows = allRows.map((rowData) => {
             const companyName = rowData[0]?.trim() ?? ""
-            const companyComp = rowData[1]?.trim()
+            const companyComp = parseInt(rowData[1]?.trim())
             const targetCompany = companiesData.find((companyData) => {
                 return (
                     companyData.companyName === companyName &&
-                    companyData.companyCompensation.toString() === companyComp
+                    companyData.companyCompensation === companyComp
                 )
             })
 
