@@ -126,7 +126,7 @@ export default function CreateEditor(props: EditorProps) {
                 <div className={"flex justify-center items-center flex-grow"}>
                     <canvas
                         ref={canvasRef}
-                        id={"upload-student-editor-canvas"}
+                        id={"create-editor-canvas"}
                         width={CONFIG.CANVAS_WIDTH}
                         height={CONFIG.CANVAS_HEIGHT}
                         className={"border"}
