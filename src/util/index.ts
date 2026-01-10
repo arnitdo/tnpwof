@@ -1,7 +1,9 @@
 import {CONFIG} from "@/util/constants";
 
 export function canonicalizeText(textStr: string){
-    return textStr.slice(0, 1).toUpperCase() + textStr.slice(1).toLowerCase()
+    return (
+	    textStr.slice(0, 1).toUpperCase() + textStr.slice(1).toLowerCase()
+    ).trim()
 }
 
 export function parseCompensation(compensationAmt: string){
