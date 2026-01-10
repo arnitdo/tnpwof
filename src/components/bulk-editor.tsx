@@ -17,7 +17,16 @@ export default function BulkEditor(props: EditorProps) {
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
-    const [csvData, setCSVData] = useState<string>("")
+    const [csvData, setCSVData] = useState<string>(() => {
+		if (typeof window !== "undefined"){
+			const savedData = localStorage.getItem("csvData")
+			if (savedData){
+				return JSON.parse(savedData)
+			}
+		}
+
+		return ""
+    })
 
     // useEffect(() => {
     //     async function createAndReturnImage(){
@@ -60,26 +69,36 @@ export default function BulkEditor(props: EditorProps) {
                 return studentData.studentId === studentSAP
             })
 
-            console.log({targetCompany, targetStudent, companyName, companyComp, studentSAP})
-
             if (!targetCompany) {
-                return 0 as const
+                return `No such company ${companyName} with compensation ${companyComp}`
             }
 
             if (!targetStudent) {
-                return 1 as const
+                return `No such student with SAP ${studentSAP}`
 
             }
 
             return [targetCompany, targetStudent] as const
         })
 
-        return mappedRows
+	    const firstValid = mappedRows.find((rowData) => {
+			    return typeof rowData !== "string"
+	    })
+
+	    if (!firstValid){
+		    return mappedRows
+	    }
+
+		// Workaround since fonts may not be loaded for the first bulk entry
+        return [
+			firstValid,
+	        ...mappedRows
+        ]
     }, [csvData])
 
     async function generateImages(){
         for (const parsedData of csvParsed) {
-            if (parsedData == 0 || parsedData == 1) {
+            if (typeof parsedData === "string") {
                 continue
             }
 
@@ -103,6 +122,7 @@ export default function BulkEditor(props: EditorProps) {
                 }
             }
         }
+		localStorage.setItem("csvData", JSON.stringify(csvData))
     }
 
     if (typeof window !== "undefined" && !window.location.href.includes(process.env.NEXT_PUBLIC_SECRET_KEY!)){
@@ -123,12 +143,9 @@ export default function BulkEditor(props: EditorProps) {
                 <div className={"flex flex-col gap-1 overflow-y-scroll max-h-96"}>
                 {
                     csvParsed.map((parsedData, parsedIdx) => {
-                        if (parsedData == 0) {
-                            return <span key={parsedIdx}>Invalid company at line {parsedIdx + 1}</span>
-                        }
-                        if (parsedData == 1) {
-                            return <span key={parsedIdx}>Invalid student at line {parsedIdx + 1}</span>
-                        }
+	                    if (typeof parsedData === "string") {
+							return <span key={parsedIdx} className={"text-red-600"}>Line{parsedIdx + 1}: {parsedData}</span>
+	                    }
 
                         const [companyData, studentData] = parsedData
 

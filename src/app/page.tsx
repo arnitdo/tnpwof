@@ -6,14 +6,17 @@ export default async function Home() {
 
     return (
         <div className={"w-screen h-screen flex flex-row"}>
-            <div className={"h-screen flex-[0.1] flex flex-col items-center justify-center border p-2"}>
+            <div className={"h-screen flex-[0.1] flex flex-col gap-4 items-center justify-center border p-2"}>
                 <a href={"/create"} className={"border p-4 text-center"}>
                     Create Image
                 </a>
-                <a href={"/upload-student"} className={"border p-4 text-center mt-4"}>
+	            <a href={"/bulk"} className={"border p-4 text-center"}>
+                    Create Bulk
+                </a>
+                <a href={"/upload-student"} className={"border p-4 text-center"}>
                     Upload Student Image
                 </a>
-                <a href={"/upload-company"} className={"border p-4 text-center mt-4"}>
+                <a href={"/upload-company"} className={"border p-4 text-center"}>
                     Upload Company Image
                 </a>
             </div>
